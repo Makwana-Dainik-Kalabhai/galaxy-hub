@@ -64,7 +64,7 @@ export const RPG: React.FC<RPGProps> = ({ onGameOver, isPaused }) => {
     if (!combatEnemy || isPaused) return;
 
     audioManager.play('click');
-    const logs = [];
+    const logs = new Array();
     let pDamage = stats.atk;
     let enemy = { ...combatEnemy };
     let player = { ...stats };

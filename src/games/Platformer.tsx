@@ -53,7 +53,7 @@ export const Platformer: React.FC<PlatformerProps> = ({ onGameOver, isPaused }) 
   }, []);
 
   // Set up platforms, coins, spikes based on active level
-  const generateLevel = (lvl: number) => {
+  const generateLevel = () => {
     px.current = 50;
     py.current = 150;
     vx.current = 0;
@@ -90,7 +90,7 @@ export const Platformer: React.FC<PlatformerProps> = ({ onGameOver, isPaused }) 
   };
 
   useEffect(() => {
-    generateLevel(level);
+    generateLevel();
   }, [level]);
 
   // Main game physics loop
@@ -223,7 +223,7 @@ export const Platformer: React.FC<PlatformerProps> = ({ onGameOver, isPaused }) 
     audioManager.play('click');
     setScore(0);
     setLevel(1);
-    generateLevel(1);
+    generateLevel();
     setIsPlaying(true);
   };
 
