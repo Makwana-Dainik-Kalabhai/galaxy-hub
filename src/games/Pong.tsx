@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUp, ArrowDown, Play, RotateCcw } from 'lucide-react';
+import { ArrowUp, ArrowDown, RotateCcw } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface PongProps {

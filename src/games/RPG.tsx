@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, Sparkles, Award, RotateCcw, Heart, Sword, ShoppingBag } from 'lucide-react';
+import React, { useState } from 'react';
+import { RotateCcw, Heart, Sword } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface RPGProps {
@@ -30,11 +30,11 @@ export const RPG: React.FC<RPGProps> = ({ onGameOver, isPaused }) => {
   const selectHeroClass = (cls: HeroClass) => {
     audioManager.play('click');
     setHeroClass(cls);
-    const baseStats = 
+    const baseStats =
       cls === 'Warrior' ? { lvl: 1, hp: 110, maxHp: 110, atk: 11, exp: 0, gold: 50 } :
-      cls === 'Mage' ? { lvl: 1, hp: 75, maxHp: 75, atk: 16, exp: 0, gold: 50 } :
-      { lvl: 1, hp: 90, maxHp: 90, atk: 13, exp: 0, gold: 50 }; // Rogue
-    
+        cls === 'Mage' ? { lvl: 1, hp: 75, maxHp: 75, atk: 16, exp: 0, gold: 50 } :
+          { lvl: 1, hp: 90, maxHp: 90, atk: 13, exp: 0, gold: 50 }; // Rogue
+
     setStats(baseStats);
     setWeapon(cls === 'Warrior' ? 'Steel Sword' : cls === 'Mage' ? 'Wooden Staff' : 'Twin Daggers');
     setArmor('Initiate Tunic');
@@ -47,7 +47,7 @@ export const RPG: React.FC<RPGProps> = ({ onGameOver, isPaused }) => {
     audioManager.play('click');
     const quest = QUESTS[activeQuestIdx];
     const enemyLvl = activeQuestIdx + 1;
-    
+
     setCombatEnemy({
       name: quest.name.replace('Menace', '').replace('Raid', '').replace('Conquer the', ''),
       hp: 35 + enemyLvl * 25,
@@ -97,7 +97,7 @@ export const RPG: React.FC<RPGProps> = ({ onGameOver, isPaused }) => {
       player.exp += enemy.expValue;
 
       logs.push(`Defeated ${enemy.name}! Gained ${enemy.goldValue} Gold and ${enemy.expValue} EXP.`);
-      
+
       // Level Up Check
       const nextExpReq = player.lvl * 120;
       if (player.exp >= nextExpReq) {
@@ -219,7 +219,7 @@ export const RPG: React.FC<RPGProps> = ({ onGameOver, isPaused }) => {
                   </div>
                 </div>
                 <div className="w-20 h-1.5 bg-white/10 rounded overflow-hidden">
-                  <div 
+                  <div
                     className="h-full bg-red-500 transition-all duration-300"
                     style={{ width: `${(combatEnemy.hp / combatEnemy.maxHp) * 100}%` }}
                   ></div>
@@ -267,17 +267,15 @@ export const RPG: React.FC<RPGProps> = ({ onGameOver, isPaused }) => {
               <div className="flex border-b border-white/5">
                 <button
                   onClick={() => { setMenuTab('quest'); audioManager.play('click'); }}
-                  className={`flex-1 py-2 font-orbitron font-bold text-xs uppercase ${
-                    menuTab === 'quest' ? 'text-secondary border-b-2 border-secondary' : 'text-gray-500'
-                  }`}
+                  className={`flex-1 py-2 font-orbitron font-bold text-xs uppercase ${menuTab === 'quest' ? 'text-secondary border-b-2 border-secondary' : 'text-gray-500'
+                    }`}
                 >
                   Active Quests
                 </button>
                 <button
                   onClick={() => { setMenuTab('shop'); audioManager.play('click'); }}
-                  className={`flex-1 py-2 font-orbitron font-bold text-xs uppercase ${
-                    menuTab === 'shop' ? 'text-secondary border-b-2 border-secondary' : 'text-gray-500'
-                  }`}
+                  className={`flex-1 py-2 font-orbitron font-bold text-xs uppercase ${menuTab === 'shop' ? 'text-secondary border-b-2 border-secondary' : 'text-gray-500'
+                    }`}
                 >
                   Vendor Shop
                 </button>

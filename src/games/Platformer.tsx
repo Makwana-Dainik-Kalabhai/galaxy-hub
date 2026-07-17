@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RotateCcw } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface PlatformerProps {
@@ -197,9 +197,9 @@ export const Platformer: React.FC<PlatformerProps> = ({ onGameOver, isPaused }) 
 
   const checkOverlap = (r1: Entity, r2: Entity): boolean => {
     return r1.x < r2.x + r2.w &&
-           r1.x + r1.w > r2.x &&
-           r1.y < r2.y + r2.h &&
-           r1.y + r1.h > r2.y;
+      r1.x + r1.w > r2.x &&
+      r1.y < r2.y + r2.h &&
+      r1.y + r1.h > r2.y;
   };
 
   const triggerDeath = () => {
@@ -250,7 +250,7 @@ export const Platformer: React.FC<PlatformerProps> = ({ onGameOver, isPaused }) 
       ctx.shadowBlur = 8;
       ctx.shadowColor = '#1A1A3F';
       ctx.fillRect(p.x, p.y, p.w, p.h);
-      
+
       // glowing neon top border line
       ctx.fillStyle = '#6C63FF';
       ctx.shadowBlur = 6;
@@ -265,7 +265,7 @@ export const Platformer: React.FC<PlatformerProps> = ({ onGameOver, isPaused }) 
     coinsRef.current.forEach(c => {
       if (c.active) {
         ctx.beginPath();
-        ctx.arc(c.x + c.w/2, c.y + c.h/2, 5, 0, 2 * Math.PI);
+        ctx.arc(c.x + c.w / 2, c.y + c.h / 2, 5, 0, 2 * Math.PI);
         ctx.fill();
       }
     });
@@ -277,7 +277,7 @@ export const Platformer: React.FC<PlatformerProps> = ({ onGameOver, isPaused }) 
     spikesRef.current.forEach(s => {
       ctx.beginPath();
       ctx.moveTo(s.x, s.y + s.h);
-      ctx.lineTo(s.x + s.w/2, s.y);
+      ctx.lineTo(s.x + s.w / 2, s.y);
       ctx.lineTo(s.x + s.w, s.y + s.h);
       ctx.closePath();
       ctx.fill();

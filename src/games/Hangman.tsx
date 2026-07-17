@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
@@ -131,12 +131,11 @@ export const Hangman: React.FC<HangmanProps> = ({ onGameOver, isPaused }) => {
           {/* Gallows visual box */}
           <div className="bg-cardbg/40 border border-white/5 w-full rounded-2xl p-4 flex items-center justify-center relative min-h-[200px]">
             {renderHangmanSVG()}
-            
+
             {gameState !== 'playing' && (
               <div className="absolute inset-0 bg-black/85 flex flex-col items-center justify-center rounded-2xl z-10 text-center p-4">
-                <h4 className={`font-orbitron font-black text-lg uppercase tracking-wider mb-2 ${
-                  gameState === 'win' ? 'text-green-400 text-neon-green' : 'text-red-400 text-neon-red'
-                }`}>
+                <h4 className={`font-orbitron font-black text-lg uppercase tracking-wider mb-2 ${gameState === 'win' ? 'text-green-400 text-neon-green' : 'text-red-400 text-neon-red'
+                  }`}>
                   {gameState === 'win' ? 'WORD GUESSED!' : 'GAME OVER!'}
                 </h4>
                 <p className="text-xs text-gray-400 mb-3">
@@ -157,11 +156,10 @@ export const Hangman: React.FC<HangmanProps> = ({ onGameOver, isPaused }) => {
             {word.split('').map((char, index) => {
               const showChar = guessedLetters.includes(char) || gameState === 'lose';
               return (
-                <div 
+                <div
                   key={index}
-                  className={`w-8 h-10 border-b-2 font-mono text-xl font-bold flex items-center justify-center ${
-                    showChar ? 'text-white border-secondary' : 'text-transparent border-gray-600'
-                  }`}
+                  className={`w-8 h-10 border-b-2 font-mono text-xl font-bold flex items-center justify-center ${showChar ? 'text-white border-secondary' : 'text-transparent border-gray-600'
+                    }`}
                 >
                   {char}
                 </div>
@@ -179,11 +177,10 @@ export const Hangman: React.FC<HangmanProps> = ({ onGameOver, isPaused }) => {
                   key={key}
                   disabled={isUsed || gameState !== 'playing'}
                   onClick={() => guessLetter(key)}
-                  className={`w-8 h-8 rounded text-xs font-bold font-mono transition-all flex items-center justify-center ${
-                    isWrong ? 'bg-red-500/10 border border-red-500/30 text-red-500 opacity-60' :
-                    isUsed ? 'bg-green-500/10 border border-green-500/30 text-green-500 opacity-60' :
-                    'bg-cardbg border border-white/5 hover:border-primary text-gray-300 hover:text-white'
-                  }`}
+                  className={`w-8 h-8 rounded text-xs font-bold font-mono transition-all flex items-center justify-center ${isWrong ? 'bg-red-500/10 border border-red-500/30 text-red-500 opacity-60' :
+                      isUsed ? 'bg-green-500/10 border border-green-500/30 text-green-500 opacity-60' :
+                        'bg-cardbg border border-white/5 hover:border-primary text-gray-300 hover:text-white'
+                    }`}
                 >
                   {key}
                 </button>

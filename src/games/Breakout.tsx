@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RotateCcw } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface BreakoutProps {
@@ -26,7 +26,7 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
   const brickW = 50;
 
   // Refs for loop physics state
-  const paddleRef = useRef({ x: width/2 - 40, y: height - 20, w: 80, h: 10 });
+  const paddleRef = useRef({ x: width / 2 - 40, y: height - 20, w: 80, h: 10 });
   const ballsRef = useRef<Ball[]>([]);
   const bricksRef = useRef<Brick[]>([]);
   const powerupsRef = useRef<PowerUp[]>([]);
@@ -112,17 +112,17 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
       if (ball.y >= pad.y - 6 && ball.y <= pad.y && ball.x >= pad.x && ball.x <= pad.x + pad.w) {
         ball.vy = -Math.abs(ball.vy);
         // Add velocity variance based on pad bounce center offset
-        const hitOffset = (ball.x - (pad.x + pad.w/2)) / (pad.w/2);
+        const hitOffset = (ball.x - (pad.x + pad.w / 2)) / (pad.w / 2);
         ball.vx = hitOffset * 4;
         audioManager.play('hit');
       }
 
       // Brick collisions
       bricksRef.current.forEach(brick => {
-        if (brick.active && 
-            ball.x >= brick.x && ball.x <= brick.x + brick.w &&
-            ball.y >= brick.y - 6 && ball.y <= brick.y + brick.h + 6) {
-          
+        if (brick.active &&
+          ball.x >= brick.x && ball.x <= brick.x + brick.w &&
+          ball.y >= brick.y - 6 && ball.y <= brick.y + brick.h + 6) {
+
           brick.active = false;
           ball.vy = -ball.vy;
           audioManager.play('score');
@@ -132,7 +132,7 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
           if (Math.random() < 0.28) {
             const types: ('expand' | 'life' | 'multiball')[] = ['expand', 'life', 'multiball'];
             powerupsRef.current.push({
-              x: brick.x + brick.w/2 - 6,
+              x: brick.x + brick.w / 2 - 6,
               y: brick.y + brick.h,
               w: 12,
               h: 12,
@@ -181,7 +181,7 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
     } else {
       // Spawn new starting ball
       ballsRef.current = [{
-        x: width/2,
+        x: width / 2,
         y: height - 40,
         vx: 3,
         vy: -3.5,
@@ -193,7 +193,7 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
   const triggerPowerup = (type: 'expand' | 'life' | 'multiball') => {
     audioManager.play('levelUp');
     const pad = paddleRef.current;
-    
+
     switch (type) {
       case 'expand':
         pad.w = 120;
@@ -207,7 +207,7 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
         break;
       case 'multiball':
         // Spawn 2 extra balls
-        const active = ballsRef.current[0] || { x: width/2, y: height/2 };
+        const active = ballsRef.current[0] || { x: width / 2, y: height / 2 };
         ballsRef.current.push(
           { x: active.x, y: active.y, vx: -3, vy: -3, active: true },
           { x: active.x, y: active.y, vx: 2, vy: -4, active: true }
@@ -242,9 +242,9 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
     audioManager.play('click');
     setScore(0);
     setLives(3);
-    paddleRef.current = { x: width/2 - 40, y: height - 20, w: 80, h: 10 };
+    paddleRef.current = { x: width / 2 - 40, y: height - 20, w: 80, h: 10 };
     ballsRef.current = [{
-      x: width/2,
+      x: width / 2,
       y: height - 40,
       vx: 3.2,
       vy: -3.8,
@@ -272,7 +272,7 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
         ctx.shadowBlur = 6;
         ctx.shadowColor = b.color;
         ctx.fillRect(b.x, b.y, b.w, b.h);
-        
+
         // shiny bevel lines
         ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
         ctx.fillRect(b.x, b.y, b.w, 3);
@@ -306,17 +306,17 @@ export const Breakout: React.FC<BreakoutProps> = ({ onGameOver, isPaused }) => {
         ctx.fillStyle = color;
         ctx.shadowColor = color;
         ctx.shadowBlur = 10;
-        
+
         ctx.beginPath();
-        ctx.arc(pw.x + pw.w/2, pw.y + pw.h/2, 6, 0, 2 * Math.PI);
+        ctx.arc(pw.x + pw.w / 2, pw.y + pw.h / 2, 6, 0, 2 * Math.PI);
         ctx.fill();
-        
+
         // draw inner label letter
         ctx.fillStyle = '#000000';
         ctx.shadowBlur = 0;
         ctx.font = '8px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(pw.type[0].toUpperCase(), pw.x + pw.w/2, pw.y + pw.h/2 + 3);
+        ctx.fillText(pw.type[0].toUpperCase(), pw.x + pw.w / 2, pw.y + pw.h / 2 + 3);
       }
     });
 

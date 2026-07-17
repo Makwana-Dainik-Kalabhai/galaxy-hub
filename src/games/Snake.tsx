@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Play, RotateCcw } from 'lucide-react';
+import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface SnakeProps {
@@ -16,7 +16,7 @@ export const Snake: React.FC<SnakeProps> = ({ onGameOver, isPaused }) => {
   const [score, setScore] = useState(0);
   const [speed, setSpeed] = useState<'normal' | 'fast'>('normal');
   const [wrapWalls, setWrapWalls] = useState(true);
-  
+
   // Snake state managed via refs to avoid closure stale state in the animation interval
   const snakeRef = useRef<Point[]>([{ x: 10, y: 10 }]);
   const directionRef = useRef<Direction>('RIGHT');
@@ -33,7 +33,7 @@ export const Snake: React.FC<SnakeProps> = ({ onGameOver, isPaused }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isPlaying || isPaused) return;
-      
+
       const key = e.key;
       const currentDir = directionRef.current;
 
@@ -276,17 +276,15 @@ export const Snake: React.FC<SnakeProps> = ({ onGameOver, isPaused }) => {
         <div className="flex gap-1.5">
           <button
             onClick={() => { setSpeed('normal'); audioManager.play('click'); }}
-            className={`px-2.5 py-1 rounded text-[10px] font-bold ${
-              speed === 'normal' ? 'bg-primary text-white' : 'text-gray-400 border border-white/5'
-            }`}
+            className={`px-2.5 py-1 rounded text-[10px] font-bold ${speed === 'normal' ? 'bg-primary text-white' : 'text-gray-400 border border-white/5'
+              }`}
           >
             Normal
           </button>
           <button
             onClick={() => { setSpeed('fast'); audioManager.play('click'); }}
-            className={`px-2.5 py-1 rounded text-[10px] font-bold ${
-              speed === 'fast' ? 'bg-secondary text-darkbg' : 'text-gray-400 border border-white/5'
-            }`}
+            className={`px-2.5 py-1 rounded text-[10px] font-bold ${speed === 'fast' ? 'bg-secondary text-darkbg' : 'text-gray-400 border border-white/5'
+              }`}
           >
             Hyper
           </button>
@@ -300,9 +298,8 @@ export const Snake: React.FC<SnakeProps> = ({ onGameOver, isPaused }) => {
         {/* Walls wrap */}
         <button
           onClick={() => { setWrapWalls(!wrapWalls); audioManager.play('click'); }}
-          className={`px-2.5 py-1 rounded text-[10px] font-bold border ${
-            wrapWalls ? 'border-green-400/30 text-green-400 bg-green-500/5' : 'border-red-400/30 text-red-400 bg-red-500/5'
-          }`}
+          className={`px-2.5 py-1 rounded text-[10px] font-bold border ${wrapWalls ? 'border-green-400/30 text-green-400 bg-green-500/5' : 'border-red-400/30 text-red-400 bg-red-500/5'
+            }`}
         >
           Wrap: {wrapWalls ? 'ON' : 'OFF'}
         </button>

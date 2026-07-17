@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RotateCcw, Award } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface RockPaperScissorsProps {
@@ -27,7 +27,7 @@ export const RockPaperScissors: React.FC<RockPaperScissorsProps> = ({ onGameOver
 
     audioManager.play('click');
     setPlayerChoice(choice);
-    
+
     // Choose computer choice
     const choices: Choice[] = ['rock', 'paper', 'scissors'];
     const comp = choices[Math.floor(Math.random() * choices.length)];
@@ -93,11 +93,10 @@ export const RockPaperScissors: React.FC<RockPaperScissorsProps> = ({ onGameOver
 
         {result && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/80 px-4 py-2 border border-white/10 rounded-lg text-center z-10 animate-pulse">
-            <h4 className={`font-orbitron font-black text-sm uppercase tracking-wider ${
-              result === 'win' ? 'text-green-400 text-neon-green' :
-              result === 'lose' ? 'text-red-400 text-neon-red' :
-              'text-yellow-400 text-neon-yellow'
-            }`}>
+            <h4 className={`font-orbitron font-black text-sm uppercase tracking-wider ${result === 'win' ? 'text-green-400 text-neon-green' :
+                result === 'lose' ? 'text-red-400 text-neon-red' :
+                  'text-yellow-400 text-neon-yellow'
+              }`}>
               {result === 'win' ? 'VICTORY' : result === 'lose' ? 'DEFEAT' : 'TIED'}
             </h4>
           </div>

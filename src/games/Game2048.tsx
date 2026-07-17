@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RotateCcw, HelpCircle, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface Game2048Props {
@@ -33,7 +33,7 @@ export const Game2048: React.FC<Game2048Props> = ({ onGameOver, isPaused }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isPaused) return;
-      
+
       switch (e.key) {
         case 'ArrowUp':
         case 'w':
@@ -69,7 +69,7 @@ export const Game2048: React.FC<Game2048Props> = ({ onGameOver, isPaused }) => {
   const spawnRandomTile = (currentBoard: Board2048): Board2048 => {
     const nextBoard = currentBoard.map(row => [...row]);
     const emptyCells: { r: number; c: number }[] = [];
-    
+
     for (let r = 0; r < 4; r++) {
       for (let c = 0; c < 4; c++) {
         if (nextBoard[r][c] === 0) emptyCells.push({ r, c });
@@ -86,7 +86,7 @@ export const Game2048: React.FC<Game2048Props> = ({ onGameOver, isPaused }) => {
 
   const handleSlide = (direction: 'UP' | 'DOWN' | 'LEFT' | 'RIGHT') => {
     audioManager.play('click');
-    
+
     // Save state history for Undo function
     const prevBoardState = board.map(row => [...row]);
     const prevScoreState = score;
@@ -96,7 +96,7 @@ export const Game2048: React.FC<Game2048Props> = ({ onGameOver, isPaused }) => {
     // If board actually changed, spawn a tile
     if (JSON.stringify(newBoard) !== JSON.stringify(board)) {
       newBoard = spawnRandomTile(newBoard);
-      
+
       setBoardHistory(prev => [...prev, { board: prevBoardState, score: prevScoreState }]);
       setBoard(newBoard);
       setScore(prev => prev + points);
@@ -185,7 +185,7 @@ export const Game2048: React.FC<Game2048Props> = ({ onGameOver, isPaused }) => {
 
   const getAiSuggestion = () => {
     audioManager.play('score');
-    
+
     // Evaluate all 4 options, pick the direction leaving the most empty spaces
     const directions: ('UP' | 'DOWN' | 'LEFT' | 'RIGHT')[] = ['UP', 'DOWN', 'LEFT', 'RIGHT'];
     let bestDir = 'UP';
@@ -256,7 +256,7 @@ export const Game2048: React.FC<Game2048Props> = ({ onGameOver, isPaused }) => {
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Undo
           </button>
-          
+
           <button
             onClick={getAiSuggestion}
             className="flex items-center gap-1 border border-white/5 hover:border-yellow-400 hover:text-yellow-400 px-2.5 py-1 rounded text-[10px] font-bold transition"
@@ -274,7 +274,7 @@ export const Game2048: React.FC<Game2048Props> = ({ onGameOver, isPaused }) => {
 
       {/* Grid container */}
       <div className="grid grid-cols-4 gap-3 bg-cardbg/80 border border-white/5 p-3 rounded-2xl aspect-square w-72 sm:w-80 relative">
-        {board.map((row, r) => 
+        {board.map((row, r) =>
           row.map((val, c) => {
             const styles = val > 0 ? getTileStyles(val) : { bg: 'bg-black/20', text: 'text-gray-700', shadow: '' };
             return (

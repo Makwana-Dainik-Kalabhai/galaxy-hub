@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HelpCircle, Check, Lightbulb, RotateCcw, Timer } from 'lucide-react';
+import { Check, Lightbulb, Timer } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface SudokuProps {
@@ -34,7 +34,7 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
   // Generate board based on solved grid by mapping shuffled digit mappings
   const generatePuzzle = (diff: 'easy' | 'medium' | 'hard') => {
     audioManager.play('click');
-    
+
     // Create random map of digits 1-9
     const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const shuffledDigits = [...digits].sort(() => Math.random() - 0.5);
@@ -101,8 +101,8 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
       // Toggle pencil notes
       const key = `${r},${c}`;
       const notes = pencilNotes[key] || [];
-      const updatedNotes = notes.includes(digit) 
-        ? notes.filter(n => n !== digit) 
+      const updatedNotes = notes.includes(digit)
+        ? notes.filter(n => n !== digit)
         : [...notes, digit].sort();
       setPencilNotes(prev => ({ ...prev, [key]: updatedNotes }));
       setBoard(prev => {
@@ -124,7 +124,7 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
     if (!selectedCell || isPaused) return;
     audioManager.play('score');
     const { r, c } = selectedCell;
-    
+
     setBoard(prev => {
       const next = prev.map(row => [...row]);
       next[r][c] = solution[r][c];
@@ -182,9 +182,8 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
             <button
               key={diff}
               onClick={() => setDifficulty(diff)}
-              className={`px-2 py-1 rounded capitalize text-[10px] font-bold ${
-                difficulty === diff ? 'bg-primary text-white' : 'text-gray-400'
-              }`}
+              className={`px-2 py-1 rounded capitalize text-[10px] font-bold ${difficulty === diff ? 'bg-primary text-white' : 'text-gray-400'
+                }`}
             >
               {diff}
             </button>
@@ -199,17 +198,17 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
 
       {/* Main Grid */}
       <div className="grid grid-cols-9 gap-0.5 bg-gray-800 p-0.5 border border-white/10 rounded-xl overflow-hidden aspect-square w-full relative">
-        {board.map((row, r) => 
+        {board.map((row, r) =>
           row.map((cell, c) => {
             const isPrefilled = initialBoard[r][c];
             const isSelected = selectedCell?.r === r && selectedCell?.c === c;
             const pencilKey = `${r},${c}`;
             const notes = pencilNotes[pencilKey] || [];
-            
+
             // Subgrid visual separator thick borders
             const borderR = (r === 2 || r === 5) ? 'border-b-2 border-gray-700' : '';
             const borderC = (c === 2 || c === 5) ? 'border-r-2 border-gray-700' : '';
-            
+
             // Validation indicator if check was pressed
             const hasError = checkTriggered && cell !== 0 && cell !== solution[r][c];
 
@@ -217,19 +216,18 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
               <button
                 key={`${r}-${c}`}
                 onClick={() => handleCellSelect(r, c)}
-                className={`w-full aspect-square text-sm font-orbitron font-bold flex items-center justify-center relative select-none ${borderR} ${borderC} ${
-                  isPrefilled ? 'bg-white/5 text-gray-400 cursor-not-allowed' :
-                  isSelected ? 'bg-secondary/20 text-secondary border border-secondary' :
-                  hasError ? 'bg-red-500/20 text-red-400 border border-red-500' :
-                  'bg-cardbg text-white hover:bg-white/5'
-                }`}
+                className={`w-full aspect-square text-sm font-orbitron font-bold flex items-center justify-center relative select-none ${borderR} ${borderC} ${isPrefilled ? 'bg-white/5 text-gray-400 cursor-not-allowed' :
+                    isSelected ? 'bg-secondary/20 text-secondary border border-secondary' :
+                      hasError ? 'bg-red-500/20 text-red-400 border border-red-500' :
+                        'bg-cardbg text-white hover:bg-white/5'
+                  }`}
               >
                 {cell > 0 ? (
                   <span>{cell}</span>
                 ) : (
                   // Render draft notes inside empty gridcell
                   <div className="grid grid-cols-3 gap-0.5 absolute inset-0.5 text-[7px] text-gray-500 text-center leading-none">
-                    {[1,2,3,4,5,6,7,8,9].map(num => (
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
                       <span key={num}>{notes.includes(num) ? num : ''}</span>
                     ))}
                   </div>
@@ -242,7 +240,7 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
 
       {/* Numerical Selection row */}
       <div className="grid grid-cols-9 gap-1.5 w-full">
-        {[1,2,3,4,5,6,7,8,9].map(num => (
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
           <button
             key={num}
             onClick={() => fillDigit(num)}
@@ -257,9 +255,8 @@ export const Sudoku: React.FC<SudokuProps> = ({ onGameOver, isPaused }) => {
       <div className="flex gap-2.5 w-full justify-between font-orbitron font-bold text-xs">
         <button
           onClick={() => { setPencilMode(!pencilMode); audioManager.play('click'); }}
-          className={`flex-1 py-2 rounded-lg border ${
-            pencilMode ? 'border-secondary/40 text-secondary bg-secondary/5' : 'border-white/5 text-gray-400'
-          }`}
+          className={`flex-1 py-2 rounded-lg border ${pencilMode ? 'border-secondary/40 text-secondary bg-secondary/5' : 'border-white/5 text-gray-400'
+            }`}
         >
           ✏️ Pencil Notes: {pencilMode ? 'ON' : 'OFF'}
         </button>

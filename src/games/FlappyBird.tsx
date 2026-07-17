@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RotateCcw } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface FlappyBirdProps {
@@ -106,7 +106,7 @@ export const FlappyBird: React.FC<FlappyBirdProps> = ({ onGameOver, isPaused }) 
       const pipeW = 50;
       const hitTop = birdX + birdSize > p.x && birdX - birdSize < p.x + pipeW && birdYRef.current - birdSize < p.topH;
       const hitBottom = birdX + birdSize > p.x && birdX - birdSize < p.x + pipeW && birdYRef.current + birdSize > height - p.bottomH;
-      
+
       if (hitTop || hitBottom) {
         triggerGameOver();
         return;
@@ -150,7 +150,7 @@ export const FlappyBird: React.FC<FlappyBirdProps> = ({ onGameOver, isPaused }) 
       ctx.fillStyle = '#32CD32';
       ctx.shadowBlur = 8;
       ctx.shadowColor = '#32CD32';
-      
+
       const pipeW = 50;
       // Top pipe
       ctx.fillRect(p.x, 0, pipeW, p.topH);
@@ -168,7 +168,7 @@ export const FlappyBird: React.FC<FlappyBirdProps> = ({ onGameOver, isPaused }) 
     ctx.fillStyle = '#FFD700';
     ctx.shadowColor = '#FFD700';
     ctx.shadowBlur = 10;
-    
+
     ctx.beginPath();
     ctx.arc(60, birdYRef.current, 12, 0, 2 * Math.PI);
     ctx.fill();
@@ -209,7 +209,7 @@ export const FlappyBird: React.FC<FlappyBirdProps> = ({ onGameOver, isPaused }) 
       </div>
 
       {/* Canvas viewport */}
-      <div 
+      <div
         onClick={flap}
         className="relative border border-white/5 bg-cardbg rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center aspect-[3/4] w-72 sm:w-80 cursor-pointer"
       >

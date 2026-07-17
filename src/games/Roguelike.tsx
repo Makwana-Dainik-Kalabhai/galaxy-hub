@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShieldAlert, RotateCcw, Heart, Sword, Shield } from 'lucide-react';
+import { ShieldAlert, RotateCcw, Heart, Sword } from 'lucide-react';
 import { audioManager } from '../utils/audioManager';
 
 interface RoguelikeProps {
@@ -76,7 +76,7 @@ export const Roguelike: React.FC<RoguelikeProps> = ({ onGameOver, isPaused }) =>
   const generateFloor = (floorLvl: number, hp: number, atk: number, gold: number) => {
     // 1. Fill map with wall elements
     const newMap: TileType[][] = Array(ROWS).fill(null).map(() => Array(COLS).fill('wall'));
-    
+
     // 2. Define simple procedural rooms
     const rooms = [
       { r: 2, c: 2, w: 4, h: 4 },
@@ -98,10 +98,10 @@ export const Roguelike: React.FC<RoguelikeProps> = ({ onGameOver, isPaused }) =>
 
     // Connect rooms with corridors
     const connectRooms = (r1: any, r2: any) => {
-      const startR = r1.r + Math.floor(r1.h/2);
-      const startC = r1.c + Math.floor(r1.w/2);
-      const endR = r2.r + Math.floor(r2.h/2);
-      const endC = r2.c + Math.floor(r2.w/2);
+      const startR = r1.r + Math.floor(r1.h / 2);
+      const startC = r1.c + Math.floor(r1.w / 2);
+      const endR = r2.r + Math.floor(r2.h / 2);
+      const endC = r2.c + Math.floor(r2.w / 2);
 
       // horizontal carve
       let currC = startC;
@@ -153,7 +153,7 @@ export const Roguelike: React.FC<RoguelikeProps> = ({ onGameOver, isPaused }) =>
     // Spawn monsters
     const spawnedMonsters: MonsterEntity[] = [];
     const monsterCount = 2 + floorLvl;
-    
+
     for (let i = 0; i < monsterCount; i++) {
       const room = rooms[1 + Math.floor(Math.random() * 3)];
       const mr = room.r + Math.floor(Math.random() * room.h);
@@ -236,12 +236,12 @@ export const Roguelike: React.FC<RoguelikeProps> = ({ onGameOver, isPaused }) =>
       // Monster defeated
       setMessage(`Defeated monster! Gained +20 gold.`);
       audioManager.play('score');
-      
+
       const newMap = map.map(row => [...row]);
       newMap[r][c] = 'floor'; // clear tile
       setMap(newMap);
       setMonsters(prev => prev.filter((_, idx) => idx !== monsterIdx));
-      
+
       setPlayerStats(prev => ({ ...prev, gold: prev.gold + 20 }));
     } else {
       // Monster fights back
@@ -262,7 +262,7 @@ export const Roguelike: React.FC<RoguelikeProps> = ({ onGameOver, isPaused }) =>
 
   const getTileEmoji = (type: TileType, r: number, c: number) => {
     if (playerPos.current.r === r && playerPos.current.c === c && isPlaying) return '🧙‍♂️';
-    
+
     switch (type) {
       case 'wall': return '🧱';
       case 'monster': return '👹';
@@ -302,7 +302,7 @@ export const Roguelike: React.FC<RoguelikeProps> = ({ onGameOver, isPaused }) =>
 
       {/* Grid container */}
       <div className="relative border border-white/5 bg-black p-2 rounded-2xl w-full max-w-md overflow-hidden aspect-[4/3] grid grid-cols-20 grid-rows-15 gap-0">
-        {map.map((row, r) => 
+        {map.map((row, r) =>
           row.map((tile, c) => {
             const isPlayer = playerPos.current.r === r && playerPos.current.c === c && isPlaying;
             const emoji = getTileEmoji(tile, r, c);
@@ -311,9 +311,8 @@ export const Roguelike: React.FC<RoguelikeProps> = ({ onGameOver, isPaused }) =>
             return (
               <div
                 key={`${r}-${c}`}
-                className={`w-full aspect-square flex items-center justify-center text-xs md:text-sm ${
-                  isFloor ? 'bg-zinc-950/20' : 'bg-indigo-950/40 border border-white/2'
-                }`}
+                className={`w-full aspect-square flex items-center justify-center text-xs md:text-sm ${isFloor ? 'bg-zinc-950/20' : 'bg-indigo-950/40 border border-white/2'
+                  }`}
               >
                 {emoji}
               </div>
